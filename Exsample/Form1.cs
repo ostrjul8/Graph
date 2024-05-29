@@ -165,7 +165,7 @@ namespace Example
 
         private void InitializeComboBoxes()
         {
-            for (int i = 3; i <= 20; i++)
+            for (int i = 3; i <= 30; i++)
             {
                 comboBoxVertix.Items.Add($"{i}");
                 comboBoxColorNum.Items.Add($"{i}");

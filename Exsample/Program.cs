@@ -220,7 +220,7 @@ namespace Exsample
                 {
                     return true;
                 }
-                for (int c = 0; c <= numColors; c++)
+                for (int c = 0; c < numColors; c++)
                 {
                     operationsCount++;
                     if (IsSafe(verticesOrder[v], c))
