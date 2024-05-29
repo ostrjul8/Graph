@@ -201,47 +201,48 @@ namespace Exsample
             }
             int[] verticesOrder = GetVerticesOrderByDegree(graph);
 
-            bool IsSafe(int v, int c)
-            {
-                foreach (int i in graph.GetNeighbors(v))
-                {
-                    operationsCount++;
-                    if (color[i] == c)
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
-
-            bool GraphColoringUtil(int v)
-            {
-                if (v == V)
-                {
-                    return true;
-                }
-                for (int c = 0; c < numColors; c++)
-                {
-                    operationsCount++;
-                    if (IsSafe(verticesOrder[v], c))
-                    {
-                        color[verticesOrder[v]] = c;
-                        if (GraphColoringUtil(v + 1))
-                        {
-                            return true;
-                        }
-                        color[verticesOrder[v]] = 0;
-                    }
-                }
-                return false;
-            }
-
-            if (!GraphColoringUtil(0))
+            if (!GraphColoringUtil(0, color, verticesOrder, graph))
             {
                 return null;
             }
 
             return GetColoringResult(color);
+        }
+
+        private bool GraphColoringUtil(int v, int[] color, int[] verticesOrder, Graph graph)
+        {
+            if (v == graph.CountVertices())
+            {
+                return true;
+            }
+
+            for (int c = 0; c < numColors; c++)
+            {
+                operationsCount++;
+                if (IsSafe(verticesOrder[v], c, color, graph))
+                {
+                    color[verticesOrder[v]] = c;
+                    if (GraphColoringUtil(v + 1, color, verticesOrder, graph))
+                    {
+                        return true;
+                    }
+                    color[verticesOrder[v]] = 0;
+                }
+            }
+            return false;
+        }
+
+        private bool IsSafe(int v, int c, int[] color, Graph graph)
+        {
+            foreach (int i in graph.GetNeighbors(v))
+            {
+                operationsCount++;
+                if (color[i] == c)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private int GetNeighborsDegree(Graph graph, int vertex)
@@ -273,7 +274,6 @@ namespace Exsample
             return operationsCount;
         }
     }
-
 
     internal static class Program
     {
