@@ -328,7 +328,7 @@ namespace Example
                         writer.WriteLine($"Вершина {color.Key + 1}: Колір {color.Value}");
                     }
                 }
-
+                 
                 MessageBox.Show("Дані успішно збережені до файлу.");
 
             }
