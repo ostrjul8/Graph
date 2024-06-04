@@ -236,6 +236,7 @@ namespace Exsample
         {
             foreach (int i in graph.GetNeighbors(v))
             {
+                if (i == v) continue;
                 operationsCount++;
                 if (color[i] == c)
                 {
@@ -248,7 +249,7 @@ namespace Exsample
         private int GetNeighborsDegree(Graph graph, int vertex)
         {
             operationsCount++;
-            return graph.GetNeighbors(vertex).Sum();
+            return graph.GetNeighbors(vertex).Count(neighbor => neighbor != vertex);
         }
 
         private int[] GetVerticesOrderByDegree(Graph graph)
